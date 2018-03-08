@@ -1,14 +1,20 @@
-[
-    {
-        "filepath": "./images/1.jpg",
-        "time": "10"
-    },
-    {
-        "filepath": "./images/2.jpg",
-        "time": "10"
-    },
-    {
-        "filepath": "./images/3.jpg",
-        "time": "10"
+{
+    "pictureInfomations": [
+        {
+            "filepath": "./images/1.jpg",
+            "displayTime": "10"
+        },
+        {
+            "filepath": "./images/2.jpg",
+            "displayTime": "10"
+        },
+        {
+            "filepath": "./images/3.jpg",
+            "displayTime": "10"
+        }
+    ],
+    "appointmentInfomations": {
+        "displayTime": "10",
+        "refreshTime": "120"
     }
-]
+}
