@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>公告栏</title>
+        <link rel="stylesheet" href="./stylesheets/materialize.min.css">
+        <script src='./javascripts/jquery-3.3.1.min.js'></script>
+        <script src='./javascripts/materialize.min.js'></script>
+        <script>
+            $(document).ready(function() {
+                // 读取JSON文件中的setting，渲染轮播插件
+                $.getJSON('./setting.json', function(setting) {
+                    // console.log(setting);
+                    for (let imageInfomation of setting.pictureInfomations) {
+                        $('#carousel').append(`<a class="carousel-item"><img src="${imageInfomation.filepath}"></a>`);
+                    }
+                    $('#carousel').carousel({full_width: true});
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="carousel" class="carousel carousel-slider center" data-indicators="true">
+        </div>
+    </body>
+</html>
