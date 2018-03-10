@@ -4,7 +4,7 @@ let bodyParser = require('body-parser');
 let urlencodedParser = bodyParser.urlencoded({extended: false});
 let fs = require('fs');
 
-router.post('/', urlencodedParser, async (req, res, next) => {
+router.post('/', urlencodedParser, function (req, res, next) {
     // 获取req.body传来的信息，暂存在settingData中
     let settingData = {
         pictureInfomations: req.body.pictureInfomations,
@@ -29,6 +29,24 @@ router.post('/', urlencodedParser, async (req, res, next) => {
             }
         });
     }
+});
+
+router.get('/', urlencodedParser, function (req, res, next) {
+    // 读取setting.json，转换为JSON返回
+    let file = './public/setting.json';
+    fs.readFile(file, 'ascii', function(err, data) {
+        if (err) {
+            // 读取失败，返回500（服务器错误）
+            res.sendStatus(500);
+            console.error(err);
+        } else {
+            // 读取成功，将JSON字符串转为JSON对象并返回
+            let settingData = JSON.parse(data);
+            // console.log(settingData);
+            
+            res.status(200).json(settingData);
+        }
+    });
 });
 
 // 验证SettingData是否格式合法，具有必须字段
