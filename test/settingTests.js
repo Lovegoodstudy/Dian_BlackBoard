@@ -35,7 +35,6 @@ describe('Board Setting API', function() {
             request(url)
                 .post('/setting')
                 .send(settingData)
-                .expect('Content-Type', /json/)
                 .expect(200) //Status code
                 .end(function(err,res) {
                     if (err) {
@@ -43,8 +42,6 @@ describe('Board Setting API', function() {
                     }
                     console.log("success res==>",res.body);
                     // Should.js fluent syntax applied
-                    res.body.status.should.equal(0);
-                    userCookie = res.headers['set-cookie'];
                     done();
                 });
         });
