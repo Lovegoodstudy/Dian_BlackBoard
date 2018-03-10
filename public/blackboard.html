@@ -8,8 +8,10 @@
         <script src='./javascripts/materialize.min.js'></script>
         <script>
             $(document).ready(function() {
-                $.getJSON('./setting.json', function (setting) {
-                    for (imageInfomation of setting) {
+                // 读取JSON文件中的setting，渲染轮播插件
+                $.getJSON('./setting.json', function(setting) {
+                    // console.log(setting);
+                    for (let imageInfomation of setting.pictureInfomations) {
                         $('#carousel').append(`<a class="carousel-item"><img src="${imageInfomation.filepath}"></a>`);
                     }
                     $('#carousel').carousel({full_width: true});
