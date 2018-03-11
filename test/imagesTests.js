@@ -12,9 +12,45 @@ describe('Board Images API', function() {
     
     describe('Images APIs', function() {
 
+        it('Should delete image success', function(done){
+            let deleteData ={
+                name:"1.jpg"
+            };
+            
+            request(url)
+                .delete('/image')
+                .send(deleteData)
+                .expect(200) //Status code
+                .end(function(err,res) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log("success res==>",res.body);
+                    // Should.js fluent syntax applied
+                    done();
+                });
+        });
+        it('Should delete image fail', function(done){
+            let deleteData = {
+                _name:"4.jpg"
+            };
+            
+            request(url)
+                .delete('/image')
+                .send(deleteData)
+                .expect(400) //Status code
+                .end(function(err,res) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log("success res==>",res.body);
+                    // Should.js fluent syntax applied
+                    done();
+                });
+        });
         it('Should get images success', function(done){
             request(url)
-                .get('/images')
+                .get('/image')
                 .expect(200) //Status code
                 .end(function(err,res) {
                     if (err) {
