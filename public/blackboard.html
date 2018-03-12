@@ -3,36 +3,57 @@
     <head>
         <meta charset="UTF-8">
         <title>公告栏</title>
-        <link rel="stylesheet" href="./stylesheets/materialize.min.css">
-        <script src='./javascripts/jquery-3.3.1.min.js'></script>
-        <script src='./javascripts/materialize.min.js'></script>
+        <link rel="stylesheet" href="./stylesheets/swiper.min.css">
+        <style>
+            body {
+                margin: 0;
+            }
+            .swiper-slide img {
+                background-size: contain;
+                width: 100%;
+                height: auto;
+            }
+        </style>
+        <script src='./javascripts/swiper.min.js'></script>
         <script>
-            function timedCount() {
-                console.log(c);
-                console.log($('#carousel').carousel().center);
-                if (c === 0) {
-                    $('#carousel').carousel('next');
-                    c = 10;
-                }
-                c = c - 1;
-                t = setTimeout(`timedCount()`,1000);
-            };
-            $(document).ready(function() {
-                // 读取JSON文件中的setting，渲染轮播插件
-                $.getJSON('/setting', function(setting) {
-                    // console.log(setting);
-                    for (let imageInfomation of setting.pictureInfomations) {
-                        $('#carousel').append(`<a class="carousel-item"><img src="${imageInfomation.filepath}"></a>`);
-                    }
-                    $('#carousel').carousel({full_width: true});
-                    c = setting.pictureInfomations[1].displayTime;
-                    timedCount();
+            window.onload = function() {
+                let mySwiper = new Swiper('.swiper-container', {
+                    // 分页器
+                    pagination: {
+                        el: '.swiper-pagination'
+                    },
+                    // 设置自动播放，手动滑动后不会停止自动播放
+                    autoplay: {
+                        disableOnInteraction: false
+                    },
+                    // 动画效果0.8s
+                    speed: 800
                 });
-            });
+                // 读取JSON文件中的setting，渲染轮播插件
+                let xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() {
+                    if(xmlHttp.readyState == 4) {       
+                        if (xmlHttp.status == 200 || xmlHttp.status == 0)
+                        {
+                            let pictureInfomations = JSON.parse(xmlHttp.response).pictureInfomations;
+                            for (let pictureInfomation of pictureInfomations) {
+                                mySwiper.appendSlide(`
+                                <div class="swiper-slide" data-swiper-autoplay="${pictureInfomation.displayTime}000">
+                                    <img src="${pictureInfomation.filepath}">
+                                </div>`);
+                            }
+                        }
+                    }
+                }
+                xmlHttp.open('GET', '/setting', true);
+                xmlHttp.send();
+            };
         </script>
     </head>
     <body>
-        <div id="carousel" class="carousel carousel-slider center" data-indicators="true">
+        <div class="swiper-container">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>            
         </div>
     </body>
 </html>
