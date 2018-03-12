@@ -32,7 +32,7 @@ describe('Board Images API', function() {
         });
         it('Should delete image fail', function(done){
             let deleteData = {
-                _name:"4.jpg"
+                name:"4.jpg"
             };
             
             request(url)

@@ -42,15 +42,15 @@ router.get('/', urlencodedParser, function (req, res, next) {
 
 router.delete('/', urlencodedParser, function (req, res, next) {
     let deleteData={
-        _name: req.body.name
+        name: req.body.name
     };
-    //console.log(deleteData._name);
+    //console.log(deleteData.name);
     if (!_validateDeleteData(deleteData)) {
         console.log("该图片不存在");
         res.sendStatus(400);
     } else {
         let deletePath =("./public/images/");
-        wholename=deletePath+deleteData._name;
+        wholename=deletePath+deleteData.name;
         fs.unlink(wholename,function(err){
             if(err){
                 res.sendStatus(500);
@@ -95,7 +95,7 @@ router.post('/', urlencodedParser, function (req, res, next) {
 
 function _validateDeleteData(deleteData){
     let deletePath =("./public/images/");
-    wholename=deletePath+deleteData._name;
+    wholename=deletePath+deleteData.name;
     return(fs.existsSync(wholename));
 }
 
