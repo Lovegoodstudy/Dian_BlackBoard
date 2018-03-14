@@ -12,8 +12,8 @@ describe('Board Images API', function() {
     
     describe('Images APIs', function() {
 
-        it('Should delete image success', function(done){
-            let deleteData ={
+        it('Should delete image success', function(done) {
+            let deleteData = {
                 name:"1.jpg"
             };
             
@@ -21,7 +21,7 @@ describe('Board Images API', function() {
                 .delete('/image')
                 .send(deleteData)
                 .expect(200) //Status code
-                .end(function(err,res) {
+                .end(function(err, res) {
                     if (err) {
                         throw err;
                     }
@@ -30,7 +30,7 @@ describe('Board Images API', function() {
                     done();
                 });
         });
-        it('Should delete image fail', function(done){
+        it('Should delete image fail', function(done) {
             let deleteData = {
                 name:"4.jpg"
             };
@@ -39,24 +39,24 @@ describe('Board Images API', function() {
                 .delete('/image')
                 .send(deleteData)
                 .expect(400) //Status code
-                .end(function(err,res) {
+                .end(function(err, res) {
                     if (err) {
                         throw err;
                     }
-                    console.log("success res==>",res.body);
+                    console.log("success res==>", res.body);
                     // Should.js fluent syntax applied
                     done();
                 });
         });
-        it('Should get images success', function(done){
+        it('Should get images success', function(done) {
             request(url)
                 .get('/image')
                 .expect(200) //Status code
-                .end(function(err,res) {
+                .end(function(err, res) {
                     if (err) {
                         throw err;
                     }
-                    console.log("success res==>",res.body);
+                    console.log("success res==>", res.body);
                     // Should.js fluent syntax applied
                     done();
                 });
