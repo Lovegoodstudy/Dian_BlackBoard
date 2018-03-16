@@ -35,12 +35,14 @@
                     if(xmlHttp.readyState == 4) {       
                         if (xmlHttp.status == 200 || xmlHttp.status == 0)
                         {
-                            let pictureInfomations = JSON.parse(xmlHttp.response).pictureInfomations;
+                            let setting = JSON.parse(xmlHttp.response);
+                            let pictureInfomations = setting.pictureInfomations;
                             for (let pictureInfomation of pictureInfomations) {
                                 mySwiper.appendSlide(`
                                 <div class="swiper-slide" data-swiper-autoplay="${pictureInfomation.displayTime}000">
                                     <img src="${pictureInfomation.filepath}">
                                 </div>`);
+                                setTimeout("location.reload()", setting.appointmentInfomations.refreshTime * 100);
                             }
                         }
                     }
